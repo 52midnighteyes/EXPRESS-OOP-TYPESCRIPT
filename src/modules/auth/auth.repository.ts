@@ -1,3 +1,4 @@
+import { argon2id } from "argon2";
 import { prisma as db } from "../../libs/prisma/prisma.lib.js";
 import type { TPrisma } from "../../libs/prisma/prisma.types.js";
 import type { IRegisterParams } from "./auth.interface.js";

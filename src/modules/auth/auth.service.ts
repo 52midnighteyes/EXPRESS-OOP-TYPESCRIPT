@@ -2,6 +2,7 @@ import type { IRegisterParams } from "./auth.interface.js";
 import { authRepo } from "./auth.repository.js";
 import { AppError } from "../../class/appError.js";
 import { userRepo } from "../user/user.repository.js";
+import argon2d from "argon2";
 
 class AuthService {
   public userRegister = async (params: IRegisterParams) => {
@@ -9,9 +10,12 @@ class AuthService {
       const user = await userRepo.findUserByEmail(params.email);
       if (user) throw new AppError(409, "Email is already registered");
 
-      const payload = await authRepo.createUser(params);
+      const hashedPassword = await argon2d.hash(params.password);
+      const payload = { ...params, password: hashedPassword };
 
-      return payload;
+      const safeUser = await authRepo.createUser(payload);
+
+      return safeUser;
     } catch (error) {
       console.error("message:", error);
       throw error;
