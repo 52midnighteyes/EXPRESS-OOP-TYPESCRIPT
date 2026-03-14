@@ -47,11 +47,11 @@ class App {
     this.app.use(errorHandler.handle);
   }
 
-  public start(): void {
+  public start = (): void => {
     this.app.listen(PORT, () => {
       console.log(`server is running on port ${PORT}`);
     });
-  }
+  };
 }
 
 export const app = new App();
