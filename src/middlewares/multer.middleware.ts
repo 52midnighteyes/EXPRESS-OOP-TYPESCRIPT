@@ -1,4 +1,4 @@
-import multer, { memoryStorage } from "multer";
+import multer from "multer";
 import { AppError } from "../class/appError.js";
 
 class MulterMiddleware {
@@ -9,7 +9,7 @@ class MulterMiddleware {
     limits: {
       fileSize: 5 * 1024 * 1024,
     },
-    fileFilter: (req, file, cb) => {
+    fileFilter: (_req, file, cb) => {
       const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp"];
 
       if (!allowedMimeTypes.includes(file.mimetype)) {
@@ -25,4 +25,4 @@ class MulterMiddleware {
   });
 }
 
-export const upload = new MulterMiddleware();
+export const upload = new MulterMiddleware().upload;

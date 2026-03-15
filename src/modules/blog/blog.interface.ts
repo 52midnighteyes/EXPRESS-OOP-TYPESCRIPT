@@ -2,9 +2,8 @@ import type { BlogCategory } from "../../../generated/prisma/enums.js";
 
 //--- service params
 export interface ICreateBlogParams {
-  image: string;
+  file: Express.Multer.File;
   title: string;
-  slug: string;
   content: string;
   isPublished?: boolean;
   authorId: string;
@@ -12,7 +11,9 @@ export interface ICreateBlogParams {
 }
 
 //--- DB params
-export interface ICreateBlogDbParams extends ICreateBlogParams {
-  slug: string;
+
+export interface ICreateBlogDbParams extends Omit<ICreateBlogParams, "file"> {
+  image: string;
   excerpt: string;
+  slug: string;
 }

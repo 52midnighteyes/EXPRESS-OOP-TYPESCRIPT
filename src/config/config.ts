@@ -4,7 +4,7 @@ dotenv.config();
 class EnvConfig {
   public readonly PORT: number;
   public readonly JWT_SECRET: string;
-  public readonly NODE_ENV: "development" | "production" | "test";
+  public readonly NODE_ENV: string;
   public readonly DATABASE_URL: string;
   public readonly DIRECT_URL: string;
   public readonly CLOUDINARY_CLOUD_NAME: string;
@@ -14,7 +14,7 @@ class EnvConfig {
   constructor() {
     this.PORT = this.toNumber("PORT", 8080);
     this.JWT_SECRET = this.required("JWT_SECRET");
-    this.NODE_ENV = this.toNodeEnv("NODE_ENV", "development");
+    this.NODE_ENV = process.env.NODE_ENV || "development";
     this.DATABASE_URL = this.required("DATABASE_URL");
     this.DIRECT_URL = this.required("DIRECT_URL");
     this.CLOUDINARY_CLOUD_NAME = this.required("CLOUDINARY_CLOUD_NAME");
@@ -42,19 +42,6 @@ class EnvConfig {
     }
 
     return parsed;
-  }
-
-  private toNodeEnv(
-    name: string,
-    fallback: "development" | "production" | "test",
-  ): "development" | "production" | "test" {
-    const value = process.env[name] ?? fallback;
-
-    if (value !== "development" && value !== "production" && value !== "test") {
-      throw new Error(`Invalid NODE_ENV: ${value}`);
-    }
-
-    return value;
   }
 }
 
