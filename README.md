@@ -1,53 +1,44 @@
 # Persija Jakarta Company Profile API
 
-A learning project to build a REST API with Express for Persija Jakarta's company profile.
-
-## About This Project
-
-This is my first project using Object-Oriented Programming (OOP) paradigm. The main focus is learning OOP concepts through building a structured API with classes for controllers, services, repositories, and more.
+A REST API for Persija Jakarta's company profile, built with TypeScript, Express, and Prisma.
 
 ## Tech Stack
 
-- TypeScript
+- Node.js + TypeScript
 - Express.js
-- Prisma ORM
-- PostgreSQL
-- JWT Authentication
+- PostgreSQL + Prisma ORM
+- JWT Auth + Argon2
 - Zod Validation
-- Argon2 Password Hashing
-- Multer File Upload
+- Multer + Cloudinary
 
-## Setup
+## Quick Setup
 
-1. Install dependencies: `npm install`
+1. Install deps: `npm install`
 2. Setup `.env`:
    ```
    DATABASE_URL="postgresql://..."
-   DIRECT_URL="postgresql://..."
    JWT_SECRET="your-secret"
-   NODE_ENV="development"
-   PORT=8080
+   CLOUDINARY_CLOUD_NAME="..."
+   CLOUDINARY_API_KEY="..."
+   CLOUDINARY_API_SECRET="..."
    ```
-3. Run migrations: `npm run prisma:migrate`
-4. Generate Prisma: `npm run prisma:generate`
-5. Run dev: `npm run dev`
+3. Run: `npm run prisma:migrate && npm run prisma:generate`
+4. Start: `npm run dev`
 
-## API Documentation
+## API Endpoints
 
-### Auth
+- `POST /api/auth/register` - Register user
+- `POST /api/auth/login` - Login
+- `POST /api/blogs` - Create blog (with image)
+- `GET /` - Status check
 
-- `POST /api/auth/register` - Register user (email, firstName, lastName, password, role)
+## Changelog
 
-### Root
-
-- `GET /` - Server status
-
-### Planned Endpoints
-
-- User management (CRUD)
-- Post management (news/articles)
-- Players management
-- Staff management
+- **Blog System**: Create blog posts with image upload to Cloudinary
+- **Authentication**: JWT-based login/register with Argon2 password hashing
+- **Database Models**: User, Blog, Players, Staff, ContactForm
+- **File Upload**: Multer middleware for handling image uploads
+- **Initial Setup**: Basic User and Post models with Prisma
 - Contact form
 
 ## Database Models
