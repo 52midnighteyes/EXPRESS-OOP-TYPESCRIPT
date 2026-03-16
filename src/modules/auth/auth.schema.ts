@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { userRoles } from "../../constant/roles.constant.js";
+import { userRoles } from "../../enum/userRole.enum.js";
 
 export const registerSchema = z.object({
   email: z

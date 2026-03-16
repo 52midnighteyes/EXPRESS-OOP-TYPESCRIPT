@@ -30,6 +30,7 @@ class App {
       console.log("Headers  :", req.headers);
       console.log("Body     :", req.body);
       console.log("Query    :", req.query);
+      console.log("File     :", req.file);
       console.log("============================\n");
 
       next();

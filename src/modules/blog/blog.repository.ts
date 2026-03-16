@@ -8,30 +8,66 @@ class BlogRepo {
     this.prisma = db;
   }
 
-  public findBlogByTitle = async (title: string) => {
+  public getAllBlog = async () => {
     try {
-      const blog = await this.prisma.blog.findUnique({
+      return this.prisma.blog.findMany({
         where: {
-          title,
+          isPublished: true,
         },
       });
-
-      return blog;
     } catch (error) {
       console.error("message:", error);
       throw error;
     }
   };
 
-  public createBlog = async (params: ICreateBlogDbParams) => {
+  public findBlogByTitle = async (title: string) => {
     try {
-      const blog = await this.prisma.blog.create({
+      return await this.prisma.blog.findUnique({
+        where: {
+          title,
+        },
+      });
+    } catch (error) {
+      console.error("message:", error);
+      throw error;
+    }
+  };
+
+  public findBlogById = async (id: string) => {
+    try {
+      return await this.prisma.blog.findUnique({
+        where: {
+          id,
+        },
+      });
+    } catch (error) {
+      console.error("message:", error);
+      throw error;
+    }
+  };
+
+  public create = async (params: ICreateBlogDbParams) => {
+    try {
+      return await this.prisma.blog.create({
         data: {
           ...params,
         },
       });
+    } catch (error) {
+      console.error("message:", error);
+      throw error;
+    }
+  };
 
-      return blog;
+  public update = async (params: ICreateBlogDbParams, id: string) => {
+    try {
+      return await this.prisma.blog.update({
+        where: {
+          id,
+        },
+        data: params,
+      });
     } catch (error) {
       console.error("message:", error);
       throw error;

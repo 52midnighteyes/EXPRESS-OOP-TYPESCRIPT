@@ -11,7 +11,7 @@ cloudinary.config({
 class CloudinaryConfig {
   private baseParentFolder = "persija_web";
 
-  public cloudinaryUpload = (
+  public upload = (
     file: Express.Multer.File,
     id: string,
   ): Promise<UploadApiResponse> => {
@@ -33,6 +33,26 @@ class CloudinaryConfig {
 
       Readable.from([file.buffer]).pipe(stream);
     });
+  };
+
+  public delete = async (secure_url: string) => {
+    try {
+      const action: UploadApiResponse =
+        await cloudinary.uploader.destroy(secure_url);
+      if (action.result !== "ok") {
+        throw new AppError(
+          500,
+          "Failed to delete image from Cloudinary",
+          false,
+        );
+      }
+      console.log(
+        "Image deleted successfully from Cloudinary",
+        action.original_filename,
+      );
+    } catch (error) {
+      throw error;
+    }
   };
 }
 
