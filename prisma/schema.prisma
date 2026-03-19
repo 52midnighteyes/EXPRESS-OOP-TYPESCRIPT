@@ -32,9 +32,10 @@ model User {
   password String
   role UserRole
   posts Blog[]
+  refreshToken RefreshToken[]
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  deletedAt DateTime?
+  deletedAt DateTime? @map("deleted_at")
 
   @@index([id, email])
 }
@@ -52,8 +53,18 @@ model Blog {
   authorId String @map("author_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  deletedAt DateTime?
+  deletedAt DateTime? @map("deleted_at")
   @@index([id, slug])
+}
+
+
+model RefreshToken {
+  id String @id @default(uuid())
+  hashedToken String @unique @map("hashed_token")
+  user User @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now())
 }
 
 model ContactForm {
@@ -81,7 +92,7 @@ model Players {
   avatar String?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  deletedAt DateTime?
+  deletedAt DateTime? @map("deleted_at")
 }
 
 enum StaffRole {    
@@ -105,5 +116,5 @@ model Staff {
   avatar String?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  deletedAt DateTime?
+  deletedAt DateTime? @map("deleted_at")
 }

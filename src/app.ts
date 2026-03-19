@@ -7,6 +7,7 @@ import { authRoutes } from "./modules/auth/auth.routes.js";
 import { blogRoutes } from "./modules/blog/blog.routes.js";
 import helmet from "helmet";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 class App {
   app: Application;
@@ -21,9 +22,10 @@ class App {
   private initializeMiddleware(): void {
     this.app.use(helmet());
     this.app.use(cors());
-
+    this.app.use(cookieParser());
     this.app.use(express.json());
 
+    // Request logger middleware (only in development)
     this.app.use((req: Request, _res: Response, next: NextFunction) => {
       const isProd = NODE_ENV === "production";
       if (isProd) return next();

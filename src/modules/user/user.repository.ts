@@ -9,19 +9,18 @@ class UserRepository {
   }
 
   public findUserByEmail = async (email: string) => {
-    try {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          email,
-          deletedAt: null,
-        },
-      });
+    return await this.prisma.user.findUnique({
+      where: {
+        email,
+        deletedAt: null,
+      },
+    });
+  };
 
-      return user;
-    } catch (error) {
-      console.error("message: ", error);
-      throw error;
-    }
+  public findUserById = async (id: string) => {
+    return await this.prisma.user.findUnique({
+      where: { id, deletedAt: null },
+    });
   };
 }
 

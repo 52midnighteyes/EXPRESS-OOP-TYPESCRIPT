@@ -13,3 +13,9 @@ export interface ILoginParams {
   password: string;
   role: UserRole;
 }
+
+export interface ICreateRefreshTokenDbParams {
+  userId: string;
+  hashedToken: string;
+  expiresAt: Date;
+}

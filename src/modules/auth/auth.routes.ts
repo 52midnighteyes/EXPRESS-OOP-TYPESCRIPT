@@ -25,6 +25,10 @@ class AuthRouter {
       inputValidator.schema(loginSchema, "body"),
       authController.login,
     );
+
+    this.router.post("/refresh-token", authController.refreshToken);
+
+    this.router.post("/logout", authController.logOut);
   }
 
   public getRouter() {
