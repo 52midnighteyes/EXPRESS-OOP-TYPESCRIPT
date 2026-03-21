@@ -123,7 +123,7 @@ class BlogService {
       const newTitle = "[DELETED]" + blog.title;
 
       const data = await blogRepo.deleteById(blog.id, newTitle);
-
+      await cloudinaryConfig.delete(blog.imagePublicId);
       return data;
     } catch (error) {
       console.error("message:", error);
@@ -175,7 +175,18 @@ class BlogService {
         blogRepo.countBlog(where),
       ]);
 
-      return { data, meta: count };
+      const totalPages = Math.ceil(count / limit);
+
+      const meta = {
+        totalItems: count,
+        totalPages,
+        currentPage: page,
+        itemsPerPage: limit,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      };
+
+      return { data, meta };
     } catch (error) {
       console.error("message:", error);
       throw error;
