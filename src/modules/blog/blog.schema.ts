@@ -24,6 +24,10 @@ export const updateBlogParamSchema = z.object({
   id: z.uuid().nonempty("Blog ID is required"),
 });
 
+export const getBlogBySlugSchema = z.object({
+  slug: z.string().nonempty("Blog slug is required").trim(),
+});
+
 export const getBlogByIdSchema = z.object({
   id: z.uuid().nonempty("Blog ID is required"),
 });

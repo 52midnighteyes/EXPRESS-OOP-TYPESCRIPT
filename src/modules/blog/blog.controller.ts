@@ -60,10 +60,14 @@ class BlogController {
     }
   };
 
-  public getById = async (req: Request, res: Response, Next: NextFunction) => {
+  public getBlogBySlug = async (
+    req: Request,
+    res: Response,
+    Next: NextFunction,
+  ) => {
     try {
-      const { id } = req.validated!.params as { id: string };
-      const data = await blogService.getById(id);
+      const { slug } = req.validated!.params as { slug: string };
+      const data = await blogService.getBlogBySlug(slug);
 
       res.status(200).json({ message: "Blog fetched successfully", data });
     } catch (error) {
@@ -74,7 +78,6 @@ class BlogController {
   public getAll = async (req: Request, res: Response, Next: NextFunction) => {
     try {
       const payload = req.validated!.query as IGetAllBlogsQuery;
-      console.log("Payload:", payload);
       const data = await blogService.getAll(payload);
 
       res.status(200).json({ message: "Blogs fetched successfully", data });

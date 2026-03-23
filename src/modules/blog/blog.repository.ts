@@ -117,6 +117,22 @@ class BlogRepo {
       },
     });
   };
+
+  public findBlogBySlug = async (slug: string) => {
+    return await this.prisma.blog.findUnique({
+      where: {
+        slug,
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    });
+  };
 }
 
 export const blogRepo = new BlogRepo();

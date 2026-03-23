@@ -8,6 +8,7 @@ import {
   deleteBlogByIdSchema,
   getAllBlogsSchema,
   getBlogByIdSchema,
+  getBlogBySlugSchema,
   togglePublishBodySchema,
   togglepublishparamSchema,
   updateBlogSchema,
@@ -28,10 +29,10 @@ class BlogRouter {
 
   private initializeRouter() {
     this.router.get(
-      "/:id",
+      "/:slug",
       blogDetailLimiter,
-      inputValidator.schema(getBlogByIdSchema, "params"),
-      blogController.getById,
+      inputValidator.schema(getBlogBySlugSchema, "params"),
+      blogController.getBlogBySlug,
     );
 
     this.router.get(
@@ -67,7 +68,7 @@ class BlogRouter {
     );
 
     this.router.put(
-      "/:id",
+      "/:id/update",
       blogUploadLimiter,
       upload.single("file"),
       inputValidator.schema(updateBlogSchema, "body"),
