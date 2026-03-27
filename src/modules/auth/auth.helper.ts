@@ -19,7 +19,7 @@ export class AuthHelper {
 
   public static generateAccessToken = (params: IUserParams) => {
     const accessToken = Jwt.sign(params, JWT_SECRET, {
-      expiresIn: NODE_ENV === "production" ? "1h" : "24h",
+      expiresIn: NODE_ENV === "production" ? "15m" : "24h",
     });
 
     return accessToken;

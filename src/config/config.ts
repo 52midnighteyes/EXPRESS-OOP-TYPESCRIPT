@@ -11,6 +11,7 @@ class EnvConfig {
   public readonly CLOUDINARY_API_SECRET: string;
   public readonly CLOUDINARY_API_KEY: string;
   public readonly REFRESH_TOKEN_SECRET: string;
+  public readonly FRONTEND_URL: string;
 
   constructor() {
     this.PORT = this.toNumber("PORT", 8080);
@@ -22,6 +23,8 @@ class EnvConfig {
     this.CLOUDINARY_API_SECRET = this.required("CLOUDINARY_API_SECRET");
     this.CLOUDINARY_API_KEY = this.required("CLOUDINARY_API_KEY");
     this.REFRESH_TOKEN_SECRET = this.required("REFRESH_TOKEN_SECRET");
+    this.FRONTEND_URL =
+      process.env.FRONTEND_URL || `http://localhost:${this.PORT}`;
   }
 
   private required(name: string): string {
@@ -59,4 +62,5 @@ export const {
   CLOUDINARY_API_SECRET,
   CLOUDINARY_CLOUD_NAME,
   REFRESH_TOKEN_SECRET,
+  FRONTEND_URL,
 } = env;

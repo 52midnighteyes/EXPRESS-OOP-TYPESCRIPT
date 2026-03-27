@@ -7,7 +7,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
-import { NODE_ENV, PORT } from "./config/config.js";
+import { FRONTEND_URL, NODE_ENV, PORT } from "./config/config.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
 import { blogRoutes } from "./modules/blog/blog.routes.js";
 import { matchRouter } from "./modules/match/match.routes.js";
@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: FRONTEND_URL,
     credentials: true,
   }),
 );
